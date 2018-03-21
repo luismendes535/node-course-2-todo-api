@@ -14,7 +14,7 @@ const users =[{
     tokens:[
         {
             access: 'auth',
-            token: jwt.sign({_id:UserOneId.toHexString(),access: 'auth'},'abc123').toString()
+            token: jwt.sign({_id:UserOneId.toHexString(),access: 'auth'},process.env.JWT_SECRET).toString()
         }    ]
 },{
     _id: UserTwoId,
@@ -23,7 +23,7 @@ const users =[{
     tokens:[
         {
             access: 'auth',
-            token: jwt.sign({_id:UserTwoId.toHexString(),access: 'auth'},'abc123').toString()
+            token: jwt.sign({_id:UserTwoId.toHexString(),access: 'auth'},process.env.JWT_SECRET).toString()
         }    ]
 }];
 

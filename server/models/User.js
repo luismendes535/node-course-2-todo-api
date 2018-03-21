@@ -47,7 +47,7 @@ UserSchema.methods.toJSON = function(){
 UserSchema.methods.generateAuthToken = function(){
     var user = this;
     var access = 'auth';
-    var token = jwt.sign({_id: user._id.toHexString(), access}, 'abc123').toString();
+    var token = jwt.sign({_id: user._id.toHexString(), access}, process.env.JWT_SECRET).toString();
 
     user.tokens = user.tokens.concat([{access,token}]); //Should be implemented Token Expiration to solve security and performance issues https://github.com/auth0/node-jsonwebtoken#token-expiration-exp-claim
 
@@ -69,7 +69,7 @@ UserSchema.statics.findByToken = function (token){
     var User = this;
     var decoded;
     try{
-        decoded = jwt.verify(token, 'abc123')
+        decoded = jwt.verify(token, process.env.JWT_SECRET)
     } catch(e){
         return Promise.reject();
     }
