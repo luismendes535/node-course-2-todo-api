@@ -117,19 +117,13 @@ app.post('/users/login',(req,res)=>{
     }).catch((e)=>{
         res.status(400).send(e);
     });
-
-    // User.findOne({email: req.body.email}).then((result)=>{
-    //     var password = req.body.password;
-        // bcrypt.compare(password, result.password,(err,res)=>{
-        //     if(!err){
-        //     res.status(200).send('SUCCESSFULLY LOGGED IN');   
-        //     }
-        //     res.send('Passwrod doesnt match');
-        // });    
-    // }).catch((e)=>{
-    //     res.send(e);
-    // });
-    // res.send(req.body);
+});
+app.delete('/users/me/token',authenticate, (req,res)=>{
+    req.user.removeToken(req.token).then(()=>{
+        res.status(200).send();
+    },()=>{
+        res.status(400).send();
+    }).catch()
 });
 
 
